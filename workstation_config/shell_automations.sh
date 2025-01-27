@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-get_shell () {
+get_shell_rc () {
     shell_name=$(basename "$SHELL")
 
     case "$shell_name" in
@@ -35,18 +35,30 @@ gs () {
     git status
 }
 
-
 # Setup the aliases in the shell config file
-cat <<EOF >> "$(get_shell)"
+cat <<EOF >> "$(get_shell_rc)"
+
+####################################################
 #### Installed by Workstation Automation Script ####
+####################################################
 
 ## Func to update the current branch with the repo main branch ##
-$(declare -f git_branch_update_test)
+$(declare -f git_branch_update)
 
 ## Alias for the function ##
 $(declare -f gu)
 
 ## Alias for git status ##
 $(declare -f gs)
+
+#unset the default alias for ll before setting the way I like it :)
+unalias ll
+alias ll="ls -laF"
+
+##############################################
+#### End of Workstation Automation Script ####
+##############################################
 EOF
 
+echo "Aliases and functions added to $(get_shell_rc)"
+echo "Please restart your shell to see the changes"

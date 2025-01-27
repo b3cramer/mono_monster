@@ -9,3 +9,8 @@ sh_binary(
     name = "git_automation",
     srcs = ["shell_automations.sh"],
 )
+
+sh_binary(
+    name = "shell_automation",
+    srcs = ["shell_automations.sh"],
+)
